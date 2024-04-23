@@ -1,0 +1,33 @@
+function copyObject(obj) {
+  // Check if the input is an object
+  if (typeof obj !== 'object' || obj === null) {
+    return obj; // If not an object, return the input itself
+  }
+
+  // Create a new object with the same prototype as the input object
+  const newObj = Object.create(Object.getPrototypeOf(obj));
+
+  // Get all enumerable properties of the input object and copy them to the new object
+  const properties = Object.getOwnPropertyDescriptors(obj);
+  Object.keys(properties).forEach(key => {
+    // Copy property descriptors
+    Object.defineProperty(newObj, key, properties[key]);
+  });
+
+  return newObj;
+}
+
+// Example usage
+const obj1 = {
+  name: 'John',
+  age: 30,
+  address: {
+    city: 'New York',
+    country: 'USA'
+  }
+};
+
+const obj2 = copyObject(obj1);
+
+console.log(obj1); // Original object
+console.log(obj2); // Copied object
