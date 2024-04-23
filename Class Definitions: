@@ -1,0 +1,61 @@
+// Define the Employee class
+class Employee {
+  constructor(firstName, lastName, salary, position) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.salary = salary;
+    this.position = position;
+  }
+
+  // Method to return full name
+  getFullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+
+  // Method to return all information about employee
+  toString() {
+    return `Name: ${this.getFullName()}, Position: ${this.position}, Salary: ${this.salary}`;
+  }
+}
+
+// Define the Manager class, which is a child class of Employee
+class Manager extends Employee {
+  constructor(firstName, lastName, salary, position, department, bonus) {
+    super(firstName, lastName, salary, position);
+    this.department = department;
+    this.bonus = bonus;
+  }
+
+  // Override toString method to include department and bonus
+  toString() {
+    return `${super.toString()}, Department: ${this.department}, Bonus: ${this.bonus}`;
+  }
+
+  // Method to get total salary including bonus
+  getSalary() {
+    return this.salary + this.bonus;
+  }
+}
+
+// Function to copy object data to another
+function copyObject(obj) {
+  return Object.assign(Object.create(Object.getPrototypeOf(obj)), obj);
+}
+
+// Example usage
+const emp1 = new Employee("John", "Doe", 50000, "Developer");
+const manager1 = new Manager("Jane", "Smith", 70000, "Manager", "IT", 10000);
+
+// Test toString method
+console.log(emp1.toString());
+console.log(manager1.toString());
+
+// Test getSalary method for Manager class
+console.log(manager1.getSalary());
+
+// Test copying object data
+const emp2 = copyObject(emp1);
+console.log(emp2.toString());
+
+const manager2 = copyObject(manager1);
+console.log(manager2.toString());
